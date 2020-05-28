@@ -20,14 +20,14 @@
                             </div>
                            
                             <div class="col-xs-9 text-right">
-                                <div class="huge">{{$staffno}}</div>
-                                <div>MFMRD Staff</div>
+                                <div class="huge">3</div>
+                                <div>Total Staff</div>
                             </div>
                         </div>
                     </div>
                     <a href="{{ route('frontend.stafflist.index')}}">
                         <div class="panel-footer">
-                            <span class="pull-left">Search/Update Staff</span>
+                            <span class="pull-left">Search Staff</span>
                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 
                             <div class="clearfix"></div>
@@ -43,7 +43,7 @@
                                 <i class="fa fa-user-times fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">{{$vacant}}</div>
+                                <div class="huge">12</div>
                                 <div>Vacant Positions</div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                                 <i class="fa fa-users fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">{{$staffonleave}}</div>
+                                <div class="huge">124</div>
                                 <div>Staff on Leave</div>
                             </div>
                         </div>
@@ -89,7 +89,7 @@
                                 <i class="fa fa-support fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">{{$retire}}</div>
+                                <div class="huge">13</div>
                                 <div>Staffs with (-) Leave Bal</div>
                             </div>
                         </div>
@@ -216,17 +216,17 @@
                                     </span>
                             </a>
                             <a href="#" class="list-group-item">
-                                <i class="fa fa-bolt fa-fw"></i> Contract Staff
+                                <i class="fa fa-bolt fa-fw"></i> Server Crashed!
                                     <span class="pull-right text-muted small"><em>11:13 AM</em>
                                     </span>
                             </a>
                             <a href="#" class="list-group-item">
-                                <i class="fa fa-warning fa-fw"></i> Temporary Staff
+                                <i class="fa fa-warning fa-fw"></i> Server Not Responding
                                     <span class="pull-right text-muted small"><em>10:57 AM</em>
                                     </span>
                             </a>
                             <a href="#" class="list-group-item">
-                                <i class="fa fa-shopping-cart fa-fw"></i> Onprobation Staff
+                                <i class="fa fa-shopping-cart fa-fw"></i> New Order Placed
                                     <span class="pull-right text-muted small"><em>9:49 AM</em>
                                     </span>
                             </a>

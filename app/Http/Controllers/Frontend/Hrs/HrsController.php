@@ -17,13 +17,15 @@ class HrsController extends Controller
      */
     public function index()
     {
+        
         if(request()->ajax())
         {
+
             return datatables()->of(Hrs::latest()->get())
                     ->addColumn('action', function($data){
                         $button = '<a href="' . route('frontend.stafflist.show', $data->id) .'">View </a>';
                         $button .= '&nbsp;&nbsp;';
-                        $button .= '<a href="stafflist/update">Update </a>';
+                        $button .= '<a href="' . route('frontend.stafflist.edit', $data->id) .'">Update </a>';
                         return $button;
                     })
                     ->rawColumns(['action'])
@@ -31,7 +33,8 @@ class HrsController extends Controller
         }
         return view('frontend.hrs.index');
 
-      
+        $noofstaff = DB::select('select * from hrs where fullname != ?', ['vacant']);
+        return view('frontend.hrs.report.index', ['noofstaff' => $noofstaff]);
     }
 
     /**
@@ -53,6 +56,9 @@ class HrsController extends Controller
     public function store(Request $request)
     {
         $image = $request->file('image');
+        
+
+        if ($image != NULL){
         $new_name = rand() . '.' . $image->getClientOriginalExtension();
         $image->move(public_path('images/hrs'), $new_name);
         
@@ -63,10 +69,17 @@ class HrsController extends Controller
                 'salarylevel' => $request->salarylevel, 'cursalarylevel' => $request->cursalarylevel,'dateofappointment' => $request->dateofappointment,
                 'dataofbirth' => $request->dateofbirth,'gender' => $request->gender,'appointmenttype' => $request->appointmenttype,
                 'qualification' => $request->qualification,'program' => $request->program,'pfnumber' => $request->pfnumber]);      
-                
+        }
+        else{
+            Hrs::updateOrCreate(['id' => $request->id],
+                ['division' => $request->division, 'fullname' => $request->fullname, 'posttitle' => $request->posttitle,
+                'salarylevel' => $request->salarylevel, 'cursalarylevel' => $request->cursalarylevel,'dateofappointment' => $request->dateofappointment,
+                'dataofbirth' => $request->dateofbirth,'gender' => $request->gender,'appointmenttype' => $request->appointmenttype,
+                'qualification' => $request->qualification,'program' => $request->program,'pfnumber' => $request->pfnumber]);  
+        }      
    
         //return response()->json(['success'=>'Mail recorded successfully.']);
-        return view('frontend.hrs.index')->with('success','Email created successfully');
+        return view('frontend.hrs.index')->with('success','User created successfully');
     }
 
     /**
@@ -77,8 +90,10 @@ class HrsController extends Controller
      */
     public function show($id)
     {
-        $data = Hrs::find($id);          
-        $data->age=Carbon::parse($data->dataofbirth)->age;  
+        $data = Hrs::find($id); 
+        //if (is_null($data->dataofbirth)){         
+        //$data->age=Carbon::parse($data->dataofbirth)->age;  
+        //}
 
         //$data->leaves->total=5;
         
@@ -86,6 +101,21 @@ class HrsController extends Controller
 
 
         return view('frontend.hrs.view', compact('data')); 
+    }
+
+    public function print($id)
+    {
+        $data = Hrs::find($id); 
+        //if (is_null($data->dataofbirth)){         
+        //$data->age=Carbon::parse($data->dataofbirth)->age;  
+        //}
+
+        //$data->leaves->total=5;
+        
+        
+
+
+        return view('frontend.hrs.print', compact('data')); 
     }
 
   
@@ -98,7 +128,8 @@ class HrsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data=Hrs::find($id);
+        return view('frontend.hrs.edit', compact('data'));
     }
 
     /**
@@ -110,7 +141,7 @@ class HrsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**

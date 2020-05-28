@@ -1,6 +1,6 @@
 <?php
 
-use App\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,11 +22,8 @@ class hrs extends Model
     'pfnumber',
     'incremendate',
     'datecurappointment',
-    'homeisland',
-    'age'
+    'homeisland'
     ];
-
-    
 
     public function leaves()
     {
@@ -55,7 +52,12 @@ class hrs extends Model
 
     public function leavebals()
     {
-        return $this->hasMany(Travel::class);
+        return $this->hasMany(Leavebal::class);
+    }
+
+    public function mleaves()
+    {
+        return $this->hasMany(Mleave::class);
     }
         
 }

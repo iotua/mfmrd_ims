@@ -16,7 +16,7 @@
 
                     <ul class="dropdown-menu dropdown-menu-right text-left multi-level" aria-labelledby="dropdown01">
                         @can('hrs.view')                      
-                        <a href="/hrms" class="dropdown-item">Human Resources Management System</a>
+                        <a href="{{ route('frontend.stafflist.index') }}" class="dropdown-item">Human Resources Management System</a>
                         @endcan
                         
                         @can('mrs.view')

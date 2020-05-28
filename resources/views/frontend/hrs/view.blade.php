@@ -30,9 +30,9 @@
                 </div>   
 
                 <div style="display: none">
-                    {{ $leavebal = 0 }}                   
-                    @foreach ($data->leavebals as $datas)
-                    {{ $leavebal+=$datas->bal}}
+                    {{ $leavebal=0 }}                   
+                    @foreach ($data->leavebals as $datasi)
+                    {{ $leavebal+=$datasi->bal}}
                     @endforeach
                 </div>                 
                          
@@ -59,7 +59,7 @@
                     {{ $cbal=3-$ctotal }}
                 </div>
                 <div class="alert alert-primary">
-                <div class="alert-title">Leave Bal (1 Jan 2019) - {{$leavebal}} day(s)</div>
+                <div class="alert-title">Leave Bal (1 Jan 2021) - {{$leavebal}} day(s)</div>
                         <div class="alert-title">Compasionate : {{$ctotal}} day(s) --> ({{$cbal}} remaining)</div>
                         
                 </div>
@@ -71,32 +71,43 @@
                     @endforeach
                 </div>
 
+                <div style="display: none">
+                    {{ $mtotal = 0 }}
+                   
+                    @foreach ($data->mleaves as $datas)
+                    {{ $mtotal+=$datas->daystaken}}
+                    @endforeach
+                </div>
+
                 <div class="alert alert-success">
                             <div class="alert-title">Approved Annual Leave: {{$atotal}} day(s)</div>
                             <div class="alert-title">Approved Sick Leave: {{$total}} day(s)</div>
                             <div class="alert-title">Approved Compasionate : {{$ctotal}} day(s)</div>
                             <div class="alert-title">Absent on Official travel : {{$ttotal}} day(s)</div>
+                            <div class="alert-title">Maternity leave : {{$mtotal}} day(s)</div>
 
 
 
                     </div>
                 
-                <div style="display: none">
-                    {{ $absenttotal = 0 }}
+                    <div style="display: none">
+                        {{ $absenttotal = 0 }}
+                       
+                        @foreach ($data->attendances as $datas)
+                        {{ $absenttotal+=$datas->absent}}
+                        @endforeach
+                {{$unrecorded=$absenttotal-$atotal-$total-$ctotal-$ttotal-$mtotal}}
+                    </div>
+                    <div class="alert alert-danger">
+                            <div class="alert-title">Total Absent: {{$unrecorded}} day(s) - Unathorised</div>
+                            
+                    </div>
                    
-                    @foreach ($data->attendances as $datas)
-                    {{ $absenttotal+=$datas->absent}}
-                    @endforeach
-                </div>
-                <div class="alert alert-danger">
-                        <div class="alert-title">Total Absent: {{$absenttotal}} day(s) - Fingerprint</div>
-                        
-                </div>
-               
-                <div class="alert alert-danger">
-                        <div class="alert-title">Current Leave Bal: {{$atotal+$total+$ctotal+$ttotal-$absenttotal+$leavebal}} day(s)</div>
-                        
-                </div>
+                    <div class="alert alert-danger">
+                            <div class="alert-title">Current Leave Bal: {{$leavebal-$unrecorded}} day(s)</div>
+                            
+                    </div>
+    
                 
                 
                 </th>
@@ -168,6 +179,10 @@
                                          </li>
 
                                          <li class="nav-item">
+                                            <a href="#maternity" class="nav-link" aria-controls="maternity" role="tab" data-toggle="tab">Maternity Leave</a>
+                                     </li>
+
+                                         <li class="nav-item">
                                                 <a href="#attendance" class="nav-link" aria-controls="attendance" role="tab" data-toggle="tab">Attendance</a>
                                          </li>
 
@@ -194,6 +209,10 @@
                                             @include('frontend.hrs.tabs.compasionate')
                                         </div>
 
+                                        <div role="tabpanel" class="tab-pane fade show pt-3" id="maternity" aria-labelledby="maternity-tab">
+                                            @include('frontend.hrs.tabs.maternity')
+                                        </div>
+
                                         <div role="tabpanel" class="tab-pane fade show pt-3" id="travel" aria-labelledby="travel-tab">
                                             @include('frontend.hrs.tabs.travel')
                                         </div>
@@ -213,12 +232,15 @@
         <div class="col-lg-12 margin-tb">
             
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('frontend.stafflist.index') }}"> Back</a>
-                
+                <a class="btn btn-primary" href="{{ route('frontend.stafflist.index') }}"> Back</a> 
+                <a class="btn btn-primary" href="{{ route('frontend.stafflist.print') }}"> Print</a> 
+                           
                 
             </div>
             
         </div>
+
+        
     </div>
    <br/>
 

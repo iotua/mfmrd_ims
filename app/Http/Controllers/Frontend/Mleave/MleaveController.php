@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Frontend\Leave;
+namespace App\Http\Controllers\Frontend\Mleave;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Leave;
-use App\Models\Hrs;
-use Carbon\Carbon;
+use App\Models\Mleave;
 
-class LeaveController extends Controller
+class MleaveController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,10 +23,9 @@ class LeaveController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
-
-        return view('frontend.hrs.leave.create');
+        return view('frontend.hrs.mleave.create');
     }
 
     /**
@@ -39,20 +36,13 @@ class LeaveController extends Controller
      */
     public function store(Request $request)
     {
-
-       
-        Leave::updateOrCreate(['id' => $request->id],
-               ['startdate' => $request->startdate, 'enddate' => $request->enddate, 'daystaken' => $request->leavetype,'hrs_id' => $request->hrs_id]);  
-        
-        $current_date_time = now()->timestamp;
-
-        Hrs::updateOrCreate(['id' => $request->hrs_id],
-               ['updated_at'=> $current_date_time]); 
-
-        //return response()->json(['success' => 'Mail information updated successfully']);
-        return view('frontend.hrs.index');
+        Mleave::updateOrCreate(['id' => $request->id],
+                ['hrs_id' => $request->hrs_id, 'startdate' => $request->startdate, 'enddate' => $request->enddate,'daystaken' => $request->nofofdays]);      
+                
+   
+        //return response()->json(['success'=>'Mail recorded successfully.']);
+        return view('frontend.hrs.index')->with('success','Maternity leave recorded successfully');
     }
-
 
     /**
      * Display the specified resource.

@@ -4,11 +4,6 @@ namespace App\Http\Controllers\Frontend\Hrms;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Hrs;
-use App\Models\Leave;
-use Illuminate\Support\Arr;
-use DB;
-use Carbon\Carbon;
 
 class HrmsController extends Controller
 {
@@ -19,19 +14,7 @@ class HrmsController extends Controller
      */
     public function index()
     {
-        //$data =[];
-        $dt=now();
-        
-        $vacant = Hrs::where('fullname','=','vacant')->count();
-        $staffno=Hrs::where('fullname','!=','vacant')->count();        
-        $staffonleave = Leave::where('enddate','>',$dt)->count();
-        $retire = Hrs::where('dataofbirth','!=',NULL)->count();    
-        
-        //$users = DB::table('hrs')->where(Carbon::parse($this->attributes['dataofbirth'])->age, '>=', 55)->count();
-       //Carbon::parse()->age
-  
-
-        return view ('frontend.hrs.report.index')->with( ['staffno' => $staffno, 'vacant'=>$vacant, 'staffonleave'=>$staffonleave, 'retire'=>$retire] );
+        return view ('frontend.hrs.report.index');
     }
 
     /**
@@ -43,9 +26,6 @@ class HrmsController extends Controller
     {
         //
     }
-
-    
-    
 
     /**
      * Store a newly created resource in storage.
@@ -66,7 +46,7 @@ class HrmsController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
