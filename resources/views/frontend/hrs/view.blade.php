@@ -101,14 +101,17 @@
                 {{$unrecorded=$absenttotal-$atotal-$total-$ctotal-$ttotal-$mtotal}}
                     </div>
                     <div class="alert alert-danger">
-                            <div class="alert-title">Total Absent: {{$absenttotal}} day(s)</div>
-                            
-                    </div>
-                   
-                    <div class="alert alert-danger">
-                            <div class="alert-title">Current Leave Bal: {{$leavebal-$unrecorded}} day(s)</div>
-                            
-                    </div>
+                        <div class="alert-title">Total Absents: {{$absenttotal}} day(s) (Fingerprint record)</div>
+            <div class="alert-title">Unauthorised Absents: {{$unrecorded}} day(s) </div>
+
+                        
+                </div>
+               
+                <div class="alert alert-success">
+                        <div class="alert-title">Current Leave Bal: {{$leavebal-$atotal-$unrecorded}} day(s)</div>
+                        
+                </div>
+
     
                 
                 
