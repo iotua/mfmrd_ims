@@ -94,12 +94,14 @@
                         {{ $absenttotal = 0 }}
                        
                         @foreach ($data->attendances as $datas)
-                        {{ $absenttotal+=$datas->absent}}
+                        @if ($datas->remark == 'ABSENT') 
+                        {{ $absenttotal=$absenttotal+1 }}
+                        @endif    
                         @endforeach
                 {{$unrecorded=$absenttotal-$atotal-$total-$ctotal-$ttotal-$mtotal}}
                     </div>
                     <div class="alert alert-danger">
-                            <div class="alert-title">Total Absent: {{$unrecorded}} day(s) - Unathorised</div>
+                            <div class="alert-title">Total Absent: {{$absenttotal}} day(s)</div>
                             
                     </div>
                    

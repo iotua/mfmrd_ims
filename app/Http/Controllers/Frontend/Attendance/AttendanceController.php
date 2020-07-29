@@ -25,7 +25,8 @@ class AttendanceController extends Controller
      */
     public function create()
     {
-        //
+       
+        //return view('frontend.hrs.attendance.create');
     }
 
     /**
@@ -36,7 +37,9 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Attendance::updateOrCreate(['id' => $request->id],
+        ['punch_in' => $request->punchin, 'punch_out' => $request->punchout, 'remark' => $request->remark]);  
+        return view('frontend.hrs.index');
     }
 
     /**
@@ -58,7 +61,8 @@ class AttendanceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Attendance::find($id);        
+        return view('frontend.hrs.attendance.update', compact('data')); 
     }
 
     /**
